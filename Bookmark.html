@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bookmarklet Generator</title>
+</head>
+<body>
+<div id="instructions">
+  <p>Drag the button to your bookmarks tab, and then press on it in openguessr to get the tools!</p>
+</div>
+<button id="bookmarkletButton">OpenGuessr Tools</button>
+
+<script>
+document.getElementById("bookmarkletButton").addEventListener("click", function() {
+    var scriptUrl = "https://raw.githubusercontent.com/jaylocklol/OpenGuessrTools/main/MapTools.js";
+    var bookmarkletCode = 'javascript:(function(){function loadScript(url, callback) {var script = document.createElement("script");script.type = "text/javascript";if (script.readyState) {script.onreadystatechange = function() {if (script.readyState === "loaded" || script.readyState === "complete") {script.onreadystatechange = null;callback();}};} else {script.onload = function() {callback();};}script.src = url;document.getElementsByTagName("head")[0].appendChild(script);}loadScript("' + scriptUrl + '", function() {console.log("Script loaded successfully!");});})();';
+
+    var bookmarklet = document.createElement('a');
+    bookmarklet.setAttribute('href', bookmarkletCode);
+    bookmarklet.innerHTML = 'OpenGuessr Tools'; // Change this text to whatever you want to display in the bookmarks bar
+
+    var instructions = document.getElementById("instructions");
+    instructions.parentNode.replaceChild(bookmarklet, instructions);
+});
+</script>
+</body>
+</html>
